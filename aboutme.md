@@ -4,13 +4,13 @@ title: About me
 subtitle: What else do you need?
 ---
 
-My name is **Cloe Lee** Here is little bit more about me:
+My name is **Cloe Lee**. Here is little bit more about me:
 
 I took my first coding class when I was 21, and it blowed my mind! It was too late to change my major but instead, I learned more embedded software system as an electrical engineering degree. Luckily, I now work as a software engineer at Honeywell Aerospace in my first career.
 
 As I am getting closer to high level programming than I ever thought, I found more interested in web development. In my spare time, I am developing Home Automation and Web Application.
 
-> I have never grown up, but I will never stop growing.<br/>
+> I have never grown up, but I will never stop growing.  
 > -Author C. Clarke-
 
 
