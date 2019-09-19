@@ -18,13 +18,16 @@ comments: true
 웹서버에 워드프레스 구축하기 (LAMP)
 도메인 등록 + WordPress 연결방법
 SSL 인증 설치 – Let’s Encrtpt
+
 참고 사항은 1,2,4,5 내용은 꼭 순서대로 해야 하지만, 3,6 는 라즈베리안 설치후 아무때나 해도 상관이 없다.
+
 
 # 1. 라즈베리파이 구매
 
 라즈베리파이는 아마존에서 구매 하였고. 서버로 돌릴것이기 때문에 발열이 있을 수도 있으므로 팬이 달려있는 케이스를 구매 하기로 했다.
 
 비교적 저렴하고 리뷰도 좋길래 별다른 생각없이 이 케이스를 샀다. 내가 직접 레이어별로 조립하는 방식인데 다른 케이스도 이런방식인지는 모르겠지만 라즈베리파이에 꼭 맞게 디자인 되어 충격에 안전하고 팬 소음도 거의 없어 좋다.
+
 
 # 2. 라즈베리안 설치방법
 
@@ -40,6 +43,7 @@ raspbain 이미지를 SD 카드에 옮기는방법은 공식사이트를 참조�
 
 - [공식라즈베리안 다운로드 사이트](https://www.raspberrypi.org/downloads/raspbian/)
 - [라즈베리안 설치방법 사이트 (영문)](https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup)
+
 
 ### Troubleshooting
 
@@ -65,6 +69,7 @@ sudo nano /etc/ssh/sshd_config
 ~~~
 이러한 문장을 찾아 지우거나 코멘트 처리해주면 된다.
 
+
 ## ssh 허용하기
 
 라즈베리안이 넣어진 SD 카드를 파이에 넣기전에 몇가지 설정사항이 더 있다. 2016년부터 라즈베리파이의 ssh default 가 disable로 설정 되있기때문에 이미지를 SD카드에 옮긴후 몇가지 작업을 더 해줘야한다. ssh 설정을 enable로 바꾸기위해서는 sd카드 메인 루트에 ssh 이름을 가진 빈파일을 만들어 주면된다.
@@ -74,6 +79,7 @@ sudo nano /etc/ssh/sshd_config
 touch /Volumes/boot/ssh
 ```
 윈도우 사용자라면 txt 에디터를 이용해 (i.e. notepad) ssh 라는 이름을 가진 빈파일을 해당폴더에 넣어주면 된다. ssh.txt 가되지않도록 주의하자.
+
 
 ## 네트워크 정보 입력하기
 
@@ -100,6 +106,7 @@ wpa_supplicant.conf
 
 그다음 스텝은 일반적인 라즈베리언 설치방법과 똑같다. SD카드를 eject 해준후 파이에 넣고 부팅을 시켜주면된다. 공식사이트나 다른글에서 많이 설명하고 있기때문에 이글에서 ssh를 이용해 어떻게 파이에 접속하는지는 다루지않는다. 보안을위해 라즈베이파이에 접속후 호스팅네임과 비밀번호를 바꾸는 것을 잊지 말자!
 
+
 # 3. 웹서버 관리에 유용한 툴 설치 – 방화벽, 트래픽량 감시
 
 ## 방화벽 설치
@@ -121,6 +128,7 @@ Troubleshooting
 ```
 
 ### Troubleshooting
+
 설치후 다음과 같은 오류가 나왔을때 해결 방법을 소개 하겠다.
 
 ~~~
@@ -139,7 +147,9 @@ sudo reboot
 ```
 
 ## 트래픽량 확인하기
+
 트래픽 감시툴을 설치 + 이용하는 방법은 [이블로그](https://kr.minibrary.com/10/) 글을 참고했다
+
 
 # 4. 웹서버에 워드프레스 구축하기 (LAMP)
 
@@ -153,13 +163,16 @@ sudo reboot
 
 Dynu.com에서 어떻게 DDNS를 등록 하는지에 대해서는 [여기서](https://www.dynu.com/DynamicDNS/IPUpdateClient/RaspberryPi-Dynamic-DNS) 알아 볼수 있다.
 
+
 # 6. SSL 인증 설치 – Let’s Encrypt
 
 HTTP (port 80)대신 HTTPS(443) 통신을 이용하면 통신되는 데이터가 암호화가되어 전송이 된다. 혹시모를 데이터 탈취를 막고 SSL인증서를 통해 나의 웹사이트가 안전하다는것을 알리기위해 무료 SSL 발급 툴을 설치해 주었다. 설치방법은 [이 사이트](https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/)를 참고했다. 설치후 호스팅 스텝중에 하나였던 Router Port forwarding 에 443 port 추가를 잊지말자.
 
+
 # 마무리
 
 이로써 라즈베리파이로 워드프레스 웹서버 구축 하기가 끝났다. 간단한 Linux 사용법만 알면 비교적 짧은 시간에 자기만의 서버를 완성할 수 있는 재밌는 프로젝트였는데. 이제 나만의 웹서버가 만들어졌으니 본격적으로 home IoT를 구현해볼 차례인가보다.
+
 
 # 그외 유용한 설치 목록
 
@@ -169,14 +182,11 @@ sudo apt install git-all
 ```
 그외 추가예정…
 
-#Reference
 
-https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup
+# Reference
 
-https://www.raspberrypi.org/documentation/configuration/security.md
-
-https://www.e-tinkers.com/2016/11/hosting-wordpress-on-raspberry-pi-part-5-dedicated-ip-domain-name-and-dns/
-
-https://www.dynu.com/DynamicDNS/IPUpdateClient/RaspberryPi-Dynamic-DNS
-
-https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/
+- https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup
+- https://www.raspberrypi.org/documentation/configuration/security.md
+- https://www.e-tinkers.com/2016/11/hosting-wordpress-on-raspberry-pi-part-5-dedicated-ip-domain-name-and-dns/
+- https://www.dynu.com/DynamicDNS/IPUpdateClient/RaspberryPi-Dynamic-DNS
+- https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/
