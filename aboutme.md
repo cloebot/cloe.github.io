@@ -11,7 +11,7 @@ I took my first coding class when I was 21, and it blowed my mind! It was too la
 As I am getting closer to high level programming than I ever thought, I found more interested in web development. In my spare time, I am developing Home Automation and Web Application.
 
 {: .box-note}
-I have never grown up, but I will never stop growing.
+I have never grown up, but I will never stop growing.\n
 -Author C. Clarke-
 
 My life motto is never to stop growing up. My life is too short to learn countless things I don’t know/will never know.
