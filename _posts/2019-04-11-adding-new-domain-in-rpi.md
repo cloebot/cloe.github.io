@@ -13,6 +13,7 @@ VPS의 개념은 간단하다. 80 나 433 포트를 통해 웹요청이 들어 �
 
 이제 본격적으로 도메인을 추가하는 방법을 시작해보자.
 
+
 # 1. 웹 데이터 추가하기
 
 `/var/www/` 디렉토리에는 내가 운영하고 있는 사이트의 데이터들이 저장되어 있는 공간이다.  새로운 사이트를호스팅 할 것이므로 여기에 자기가 원하는 폴더를 만들어 소스를 넣어주면 된다:
@@ -27,6 +28,7 @@ sudo mkdir gojackson
 
 난 git 을 새로 셋업해서 메인 pc 에있는 소스 파일들을 라즈베리파이로 옮겼는데, 이 방법은 구글에 이미 정보가 많으므로 이번 포스팅에는 생략한다.
 
+
 # 2. 파일 Permission 정하기
 
 새로운 웹파일을 누가 편집할 수 있나를 정할 차례이다. 많은 옵션이 있지만 나는 지금 파이에 접속하고있는유저라면 파일을 바꿀 수 있도록 설정을 하기로 했다
@@ -34,6 +36,7 @@ sudo mkdir gojackson
 ```
 sudo chown -R $USER:$USER /var/www/gojackson
 ```
+
 
 그다음엔 웹페이지 접속자가 읽을 수 있는 퍼밋 (편집은 못하도록) 설정을 해야한다:
 
@@ -46,6 +49,8 @@ sudo chmod -R 755 /var/www/gojackson`
 이제 아파치 서버가 요청을 받았을때 어떤 도메인으로 가야할지 알려주는 설정을 해보자.
 
 `cd /etc/apache2/sites-available/`
+
+
 아파치를 설치를 하고 아무 손도 안댔더라면 `000-default.conf` 라는 virtual host 파일이 있을것이다. SSL certificate 을위해 443을 열었다면 나처럼 다른 default 파일들이 있을 것이다
 
 ```
@@ -54,6 +59,7 @@ sudo chmod -R 755 /var/www/gojackson`
 default-ssl.conf
 ```
 
+
 새로운 웹은 일단 ssl 없이 추가 할 것이기 때문에 하나의 conf 파일 만 추가하면 된다. 그리고 기존의디폴트 파일과 새로운 웹의 혼동을 막기위해 기존파일을 복사해서 이름을 바꾸어 주었다:
 
 ```
@@ -61,6 +67,7 @@ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-availab
 
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gojackson.tk.conf
 ```
+
 
 이제 편집기를 이용해서 gojackson.tk.conf의 내용을 다르게 바꿀 차례이다. conf의 내용을 보면 대충이런 컨텐츠가 있을것인데
 
@@ -72,6 +79,7 @@ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-availab
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+
 
 그중에서 내가 편집한 부분은 서버각자의 도메인 이름이랑 디텍토리 이름이다:
 
@@ -96,6 +104,7 @@ RewriteCond %{SERVER_NAME} =gojackson.tk
 RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 ```
 
+
 # 4. 아파치 업데이트 하고 재시작 하기
 
 모든 세팅을 맞추었으니 아파치 설정을 켜주고 재시작해보자:
@@ -118,6 +127,7 @@ sudo a2ensite gojackson.tk.conf
 마지막으로 [지난번 포스팅](https://cloebot.github.io/2019-04-06-how-to-set-up-web-server-with-rpi/)에서 다룬 것과 마찬가지로 public ip를 도메인 사이트에 등록하고 DDNS 까지 연결해주면 끝이난다.
 
 이로써 기존에 있던 하나의 웹서버에 도메인을 추가하는 방법을 알아 보았다. 이런방식을 이용하면 하드웨어의 한계에 따라 원하는 도메인 수 만큼 추가 할수 있다. 내가 추가한 웹사이트는 유저인풋이 없는 기본적인 웹사이트여서 ssl를 추가하지는 않지만 certificate 도 각 도메인마다 어렵지 않게 추가 할 수 있을 것이다.
+
 
 # 참고 사이트
 https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
